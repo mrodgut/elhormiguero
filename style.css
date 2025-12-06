@@ -1,0 +1,638 @@
+:root {
+    --color-gold: #FFD700;
+    --color-purple: #4A0E4E;
+    --color-purple-deep: #2A052E;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --font-primary: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-black);
+    color: var(--color-white);
+    overflow-x: hidden;
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--color-black);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.loader-logo {
+    width: 200px;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px var(--color-gold));
+    }
+
+    to {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 20px var(--color-gold));
+    }
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+}
+
+.nav-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+.nav-logo {
+    height: 60px;
+}
+
+nav a {
+    color: var(--color-white);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--color-gold);
+}
+
+.hero-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.pablo-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.pablo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+    box-shadow: none;
+    transform: none;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards ease-out;
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 0.8;
+    }
+}
+
+
+.hero-title {
+    font-size: 5rem;
+    /* Larger as requested */
+    font-weight: 200;
+    /* Minimalist / Thin */
+    text-transform: uppercase;
+    margin-top: -50px;
+    letter-spacing: 0.2em;
+    /* Clean spacing */
+    position: relative;
+    z-index: 6;
+    text-align: center;
+    color: #fff;
+    display: inline-block;
+    mix-blend-mode: overlay;
+    /* Blends nicely with starry background */
+    transition: opacity 1s ease;
+}
+
+.hero-title.fade-out {
+    opacity: 0;
+}
+
+
+/* Container for the text to handle the star positioning */
+.title-wrapper {
+    position: relative;
+    display: inline-block;
+    padding: 1rem;
+    overflow: visible;
+}
+
+.char-reveal {
+    opacity: 0;
+    display: inline-block;
+    filter: blur(10px);
+    transform: scale(1.5);
+    animation: starDustReveal 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes starDustReveal {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: scale(2);
+        color: #fff;
+        text-shadow: 0 0 50px white;
+    }
+
+    50% {
+        opacity: 1;
+        color: var(--color-gold);
+        text-shadow: 0 0 20px var(--color-gold);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+        color: #fff;
+        text-shadow: none;
+    }
+}
+
+/* The Shooting Star */
+.shooting-star {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 150px;
+    height: 4px;
+    /* The tail */
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    transform: translateY(-50%) translateX(-100%);
+    filter: drop-shadow(0 0 20px #fff);
+    opacity: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.shooting-star::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px white, 0 0 40px 10px var(--color-gold);
+}
+
+
+/* Science Section */
+.science-section {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, var(--color-black), var(--color-purple-deep));
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 3rem;
+}
+
+/* Science Grid */
+.experiments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+.science-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.science-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: var(--card-color);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-color), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.science-card:hover .card-glow {
+    opacity: 0.2;
+}
+
+.science-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.science-card p {
+    color: #aaa;
+    margin-bottom: 1.5rem;
+}
+
+.experiment-btn {
+    background: transparent;
+    border: 2px solid var(--card-color);
+    color: var(--card-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.experiment-btn:hover {
+    background: var(--card-color);
+    color: #000;
+    box-shadow: 0 0 15px var(--card-color);
+}
+
+
+
+
+
+/* Science Section */
+.science-section {
+    padding: 6rem 2rem;
+    background: #111;
+    position: relative;
+    /* Container for ants */
+    overflow: hidden;
+    /* Clip ants */
+    min-height: 80vh;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 3rem;
+}
+
+/* Science Grid */
+.experiments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+.science-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.science-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: var(--card-color);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--card-color), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.science-card:hover .card-glow {
+    opacity: 0.2;
+}
+
+.science-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--color-white);
+}
+
+.science-card p {
+    color: #aaa;
+    margin-bottom: 1.5rem;
+}
+
+.experiment-btn {
+    background: transparent;
+    border: 2px solid var(--card-color);
+    color: var(--card-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.experiment-btn:hover {
+    background: var(--card-color);
+    color: #000;
+    box-shadow: 0 0 15px var(--card-color);
+}
+
+
+
+
+/* Guests Section */
+.guests-section {
+    padding: 4rem 2rem;
+    background: #111;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.guests-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.guest-card {
+    width: 200px;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.guest-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    border: 3px solid var(--color-gold);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    filter: grayscale(0.5);
+}
+
+.guest-card:hover .guest-img {
+    transform: scale(1.1) rotate(5deg);
+    border-color: var(--color-purple);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    filter: grayscale(0);
+}
+
+/* Tickets Section */
+.tickets-section {
+    padding: 8rem 2rem;
+    background: radial-gradient(circle at center, #2A052E, #000);
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.tickets-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.5;
+}
+
+.ticket-content {
+    position: relative;
+    z-index: 2;
+}
+
+.ticket-btn {
+    background: var(--color-gold);
+    color: black;
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 900;
+    cursor: pointer;
+    margin-top: 2rem;
+    transform: skew(-10deg);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.ticket-btn:hover {
+    transform: skew(-10deg) scale(1.1);
+    background: white;
+}
+
+/* Scroll Down */
+.scrolldown {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-gold);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+
+
+/* Collaborators Section */
+.collaborators-section {
+    padding: 6rem 2rem;
+    background: #000;
+}
+
+.collaborators-grid {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.collab-item {
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.collab-item:hover {
+    transform: translateY(-5px);
+}
+
+.collab-img-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.collab-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    transition: all 0.4s ease;
+}
+
+.collab-item:hover .collab-img-wrapper img {
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+.collab-item h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    letter-spacing: 1px;
+}
+
+.role {
+    font-size: 0.8rem;
+    color: var(--color-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Cinematic Header Refinements */
+.hero {
+    perspective: 2000px;
+    /* Enhanced depth */
+}
+
+.pablo-img {
+    animation: cinematicZoomOut 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    transform-origin: center center;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Improve quality */
+    image-rendering: -webkit-optimize-contrast;
+}
+
+@keyframes cinematicZoomOut {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(20px);
+        filter: blur(10px) brightness(0.5);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1) translateY(0);
+        filter: blur(0) brightness(1);
+    }
+}
