@@ -904,36 +904,57 @@ body {
 
     /* Hero Title Adjustment */
     .hero-title {
-        font-size: 20px !important;
+        font-size: 24px !important;
+        /* Updated requested size */
         width: 100%;
         padding: 0 10px;
         word-wrap: break-word;
-        /* Fallback */
         line-height: 1.5;
         margin-top: 0;
         display: flex;
-        /* Flex to stack words cleanly */
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
     }
 
-    /* Animation Mobile: Word by Word */
+    /* Spectacular Animation Mobile: Word by Word */
+    @keyframes spectacularWord {
+        0% {
+            opacity: 0;
+            transform: perspective(500px) translateZ(200px) translateY(50px) rotateX(-90deg);
+            filter: blur(10px);
+        }
+
+        60% {
+            transform: perspective(500px) translateZ(-20px) translateY(0) rotateX(10deg);
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 1;
+            transform: perspective(500px) translateZ(0) translateY(0) rotateX(0);
+            filter: blur(0);
+        }
+    }
+
     .word-wrapper {
         display: block !important;
         margin-right: 0 !important;
         opacity: 0;
-        animation: suddenWord 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        animation-delay: calc(var(--word-index) * 0.3s + 0.5s);
-        /* Start after 0.5s */
+        animation: spectacularWord 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        animation-delay: calc(var(--word-index) * 0.4s + 0.5s);
+        color: #fff !important;
+        /* Ensure solid white */
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Disable desktop character animation on mobile using priority */
+    /* Disable desktop character animation on mobile */
     .char-reveal {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
         filter: none !important;
+        color: inherit !important;
     }
 
     .pablo-img {
