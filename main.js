@@ -81,96 +81,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Cinematic Star Reveal
-    const heroTitle = document.querySelector('.hero-title');
-    const star = document.getElementById('star');
-    const titleWrapper = document.querySelector('.title-wrapper');
+    // Cinematic Star Reveal & Word splitting logic
+    function setupHeroAnimation() {
+        const title = document.querySelector('.hero-title');
+        const star = document.getElementById('star');
 
-    if (heroTitle && star) {
-        const text = heroTitle.textContent;
-        heroTitle.textContent = '';
+        if (!title) return;
 
-        // Create Spans (Grouped by words)
-        const chars = [];
+        const text = "HOY HA VENIDO A DIVERTIRSE...";
+        title.innerHTML = '';
+
+        // 1. Generate HTML structure (Words > Chars)
         const words = text.split(' ');
 
-        words.forEach((wordText) => {
-            // New revealText logic
-            function revealText() {
-                const title = document.querySelector('.hero-title');
-                if (!title) return;
+        words.forEach((word, wordIndex) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'word-wrapper';
+            wordSpan.style.setProperty('--word-index', wordIndex);
 
-                const text = "HOY HA VENIDO A DIVERTIRSE...";
-                title.innerHTML = '';
+            const chars = word.split('').map((char, charIndex) => {
+                // Staggered delay for desktop dust effect
+                // Mobile will override this with its own CSS animation
+                return `<span class="char-reveal" style="animation-delay: ${(wordIndex * 0.2) + (charIndex * 0.05)}s">${char}</span>`;
+            }).join('');
 
-                // Split by words to handle mobile "one word per line" request
-                const words = text.split(' ');
+            wordSpan.innerHTML = chars;
+            title.appendChild(wordSpan);
 
-                words.forEach((word, wordIndex) => {
-                    const wordSpan = document.createElement('span');
-                    wordSpan.className = 'word-wrapper';
-                    wordSpan.style.setProperty('--word-index', wordIndex);
-
-                    // Inside word, keep chars for desktop animation
-                    const chars = word.split('').map((char, charIndex) => {
-                        // Global index for char animation flow if needed, or local
-                        return `<span class="char-reveal" style="animation-delay: ${(wordIndex * 0.2) + (charIndex * 0.05)}s">${char}</span>`;
-                    }).join('');
-
-                    wordSpan.innerHTML = chars;
-                    // Add space logic: simply a margin in CSS for wrappers, or a space char.
-                    // Wrappers usually easier with margin.
-                    title.appendChild(wordSpan);
-
-                    // Add a space text node if not last (for accessibility/copy-paste)
-                    if (wordIndex < words.length - 1) {
-                        title.appendChild(document.createTextNode(' '));
-                    }
-                });
-
-                // Trigger generic "show" class if needed, or rely on auto-animations
-                setTimeout(() => title.classList.remove('fade-out'), 500);
+            if (wordIndex < words.length - 1) {
+                title.appendChild(document.createTextNode(' '));
             }
+        });
 
-            revealText(); // Call the new function to set up the text
+        // 2. Trigger Visibility
+        setTimeout(() => title.classList.remove('fade-out'), 100);
 
-            // Collect all char-reveal spans for the star animation
-            const chars = document.querySelectorAll('.char-reveal');
-
-            // Animate Star & Text
-            const totalTime = 4000; // Slower (not 2s)
-            const interval = totalTime / chars.length;
-
-            setTimeout(() => {
-                // Animate Star (Spiral/Sine Wave)
+        // 3. Star Animation (Optical Sugar)
+        // Only run if star exists and we are likely on desktop (visual preference)
+        if (star) {
+            const allChars = document.querySelectorAll('.char-reveal');
+            if (allChars.length > 0) {
+                // Simple star animation across width
                 star.style.opacity = '1';
-
-                const startTime = Date.now();
-
-                function animateStar() {
-                    const now = Date.now();
-                    const elapsed = now - startTime;
-                    const progress = Math.min(elapsed / totalTime, 1);
-
-                    const x = progress * titleWrapper.offsetWidth;
-                    // Spiral/Sine effect: move Y up and down
-                    const y = Math.sin(progress * Math.PI * 10) * 30; // 5 full waves, 30px amplitude
-
-                    star.style.transform = `translateY(calc(-50% + ${y}px)) translateX(${x}px)`;
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animateStar);
-                    } else {
-                        star.style.opacity = '0';
-
-                        // Fade out text after a few seconds
-                        setTimeout(() => {
-                            heroTitle.classList.add('fade-out');
-                        }, 2000);
-                    }
-                }
-
-                requestAnimationFrame(animateStar);
 
                 // Reveal Chars sync
                 chars.forEach((span, index) => {
@@ -182,71 +134,71 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000); // Start after 1s
         }
 
-    // Peeking Ants & Parallax Trigger
-    const heroContent = document.querySelector('.hero-content');
+// Peeking Ants & Parallax Trigger
+const heroContent = document.querySelector('.hero-content');
 
-        window.addEventListener('scroll', () => {
-            const scrolled = window.scrollY;
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
 
-            // Hero Parallax
-            if (scrolled < window.innerHeight) {
-                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-                heroContent.style.opacity = 1 - (scrolled / 700);
+    // Hero Parallax
+    if (scrolled < window.innerHeight) {
+        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+        heroContent.style.opacity = 1 - (scrolled / 700);
+    }
+});
+
+// Fireworks Effect
+function createFirework(x, y) {
+    const colors = ['#FFD700', '#FF0000', '#00FF00', '#0000FF', '#FFFFFF'];
+    const particles = 30;
+
+    for (let i = 0; i < particles; i++) {
+        const el = document.createElement('div');
+        el.style.position = 'fixed';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        el.style.width = '6px';
+        el.style.height = '6px';
+        el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        el.style.borderRadius = '50%';
+        el.style.pointerEvents = 'none';
+        el.style.zIndex = '9999';
+
+        // Random direction
+        const angle = Math.random() * Math.PI * 2;
+        const velocity = 2 + Math.random() * 4;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+
+        document.body.appendChild(el);
+
+        // Animate
+        let posX = x;
+        let posY = y;
+        let opacity = 1;
+
+        const anim = setInterval(() => {
+            posX += vx;
+            posY += vy + 2; // gravity
+            opacity -= 0.02;
+
+            el.style.left = posX + 'px';
+            el.style.top = posY + 'px';
+            el.style.opacity = opacity;
+
+            if (opacity <= 0) {
+                clearInterval(anim);
+                el.remove();
             }
-        });
+        }, 16);
+    }
+}
 
-        // Fireworks Effect
-        function createFirework(x, y) {
-            const colors = ['#FFD700', '#FF0000', '#00FF00', '#0000FF', '#FFFFFF'];
-            const particles = 30;
-
-            for (let i = 0; i < particles; i++) {
-                const el = document.createElement('div');
-                el.style.position = 'fixed';
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-                el.style.width = '6px';
-                el.style.height = '6px';
-                el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                el.style.borderRadius = '50%';
-                el.style.pointerEvents = 'none';
-                el.style.zIndex = '9999';
-
-                // Random direction
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = 2 + Math.random() * 4;
-                const vx = Math.cos(angle) * velocity;
-                const vy = Math.sin(angle) * velocity;
-
-                document.body.appendChild(el);
-
-                // Animate
-                let posX = x;
-                let posY = y;
-                let opacity = 1;
-
-                const anim = setInterval(() => {
-                    posX += vx;
-                    posY += vy + 2; // gravity
-                    opacity -= 0.02;
-
-                    el.style.left = posX + 'px';
-                    el.style.top = posY + 'px';
-                    el.style.opacity = opacity;
-
-                    if (opacity <= 0) {
-                        clearInterval(anim);
-                        el.remove();
-                    }
-                }, 16);
-            }
-        }
-
-        // Attach fireworks to buttons
-        document.querySelectorAll('.experiment-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const rect = btn.getBoundingClientRect();
-                createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
-            });
-        });
+// Attach fireworks to buttons
+document.querySelectorAll('.experiment-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const rect = btn.getBoundingClientRect();
+        createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    });
+});
     });
