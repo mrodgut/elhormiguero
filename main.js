@@ -2,10 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Loader
     setTimeout(() => {
         const loader = document.getElementById('loader');
-        loader.style.opacity = '0';
-        setTimeout(() => {
-            loader.remove();
-        }, 500);
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.remove();
+            }, 500);
+        }
     }, 2000);
 
 
@@ -117,14 +119,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Star Animation
         if (star) {
             star.style.opacity = '1';
-            star.animate([
-                { left: '0%', top: '50%', opacity: 1 },
-                { left: '100%', top: '50%', opacity: 0 }
-            ], {
-                duration: 3000,
-                easing: 'ease-in-out',
-                fill: 'forwards'
-            });
+            // Use standard Web Animations API
+            try {
+                star.animate([
+                    { left: '0%', top: '50%', opacity: 1 },
+                    { left: '100%', top: '50%', opacity: 0 }
+                ], {
+                    duration: 3000,
+                    easing: 'ease-in-out',
+                    fill: 'forwards'
+                });
+            } catch (e) {
+                console.log('Animation API not supported');
+            }
         }
     }
 
@@ -173,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const anim = setInterval(() => {
                 posX += vx;
-                posY += vy + 2;
+                posY += vy + 2; // gravity
                 opacity -= 0.02;
 
                 el.style.left = posX + 'px';
