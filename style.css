@@ -198,36 +198,17 @@ body {
     /* Space between words */
 }
 
-/* Character dust for desktop */
+/* PC: Typewriter Effect */
 .char-reveal {
     opacity: 0;
     display: inline-block;
-    filter: blur(10px);
-    transform: scale(1.5);
-    animation: starDustReveal 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    animation: typewriterReveal 0.01s forwards;
+    /* Instant appear after delay */
 }
 
-@keyframes starDustReveal {
-    0% {
-        opacity: 0;
-        filter: blur(20px);
-        transform: scale(2);
-        color: #fff;
-        text-shadow: 0 0 50px white;
-    }
-
-    50% {
+@keyframes typewriterReveal {
+    to {
         opacity: 1;
-        color: var(--color-gold);
-        text-shadow: 0 0 20px var(--color-gold);
-    }
-
-    100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: scale(1);
-        color: #fff;
-        text-shadow: none;
     }
 }
 
@@ -905,7 +886,6 @@ body {
     /* Hero Title Adjustment */
     .hero-title {
         font-size: 24px !important;
-        /* Updated requested size */
         width: 100%;
         padding: 0 10px;
         word-wrap: break-word;
@@ -917,23 +897,16 @@ body {
         gap: 0.5rem;
     }
 
-    /* Spectacular Animation Mobile: Word by Word */
-    @keyframes spectacularWord {
+    /* Mobile: Soft Flip Animation */
+    @keyframes flipWord {
         0% {
             opacity: 0;
-            transform: perspective(500px) translateZ(200px) translateY(50px) rotateX(-90deg);
-            filter: blur(10px);
-        }
-
-        60% {
-            transform: perspective(500px) translateZ(-20px) translateY(0) rotateX(10deg);
-            opacity: 1;
+            transform: perspective(600px) rotateX(-90deg);
         }
 
         100% {
             opacity: 1;
-            transform: perspective(500px) translateZ(0) translateY(0) rotateX(0);
-            filter: blur(0);
+            transform: perspective(600px) rotateX(0deg);
         }
     }
 
@@ -941,11 +914,12 @@ body {
         display: block !important;
         margin-right: 0 !important;
         opacity: 0;
-        animation: spectacularWord 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        animation-delay: calc(var(--word-index) * 0.4s + 0.5s);
+        transform-origin: center center;
+        animation: flipWord 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        /* Soft smooth flip */
+        animation-delay: calc(var(--word-index) * 0.3s + 0.2s);
         color: #fff !important;
-        /* Ensure solid white */
-        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        text-shadow: none !important;
     }
 
     /* Disable desktop character animation on mobile */
