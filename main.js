@@ -100,8 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
             wordSpan.style.setProperty('--word-index', wordIndex);
 
             const chars = word.split('').map((char, charIndex) => {
-                // Staggered delay for desktop dust effect
-                // Mobile will override this with its own CSS animation
                 return `<span class="char-reveal" style="animation-delay: ${(wordIndex * 0.2) + (charIndex * 0.05)}s">${char}</span>`;
             }).join('');
 
@@ -116,68 +114,85 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Trigger Visibility
         setTimeout(() => title.classList.remove('fade-out'), 100);
 
-        // 3. Star Animation (Optical Sugar)
+        // 3. Star Animation
         if (star) {
+            star.style.opacity = '1';
+            star.animate([
+                { left: '0%', top: '50%', opacity: 1 },
+                { left: '100%', top: '50%', opacity: 0 }
+            ], {
+                duration: 3000,
+                easing: 'ease-in-out',
+                fill: 'forwards'
+            });
+        }
+    }
 
-            // Hero Parallax
+    setupHeroAnimation();
+
+    // Peeking Ants & Parallax Trigger
+    const heroContent = document.querySelector('.hero-content');
+
+    if (heroContent) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
             if (scrolled < window.innerHeight) {
                 heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
                 heroContent.style.opacity = 1 - (scrolled / 700);
             }
         });
-
-// Fireworks Effect
-function createFirework(x, y) {
-    const colors = ['#FFD700', '#FF0000', '#00FF00', '#0000FF', '#FFFFFF'];
-    const particles = 30;
-
-    for (let i = 0; i < particles; i++) {
-        const el = document.createElement('div');
-        el.style.position = 'fixed';
-        el.style.left = x + 'px';
-        el.style.top = y + 'px';
-        el.style.width = '6px';
-        el.style.height = '6px';
-        el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        el.style.borderRadius = '50%';
-        el.style.pointerEvents = 'none';
-        el.style.zIndex = '9999';
-
-        // Random direction
-        const angle = Math.random() * Math.PI * 2;
-        const velocity = 2 + Math.random() * 4;
-        const vx = Math.cos(angle) * velocity;
-        const vy = Math.sin(angle) * velocity;
-
-        document.body.appendChild(el);
-
-        // Animate
-        let posX = x;
-        let posY = y;
-        let opacity = 1;
-
-        const anim = setInterval(() => {
-            posX += vx;
-            posY += vy + 2; // gravity
-            opacity -= 0.02;
-
-            el.style.left = posX + 'px';
-            el.style.top = posY + 'px';
-            el.style.opacity = opacity;
-
-            if (opacity <= 0) {
-                clearInterval(anim);
-                el.remove();
-            }
-        }, 16);
     }
-}
 
-// Attach fireworks to buttons
-document.querySelectorAll('.experiment-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const rect = btn.getBoundingClientRect();
-        createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+    // Fireworks Effect
+    function createFirework(x, y) {
+        const colors = ['#FFD700', '#FF0000', '#00FF00', '#0000FF', '#FFFFFF'];
+        const particles = 30;
+
+        for (let i = 0; i < particles; i++) {
+            const el = document.createElement('div');
+            el.style.position = 'fixed';
+            el.style.left = x + 'px';
+            el.style.top = y + 'px';
+            el.style.width = '6px';
+            el.style.height = '6px';
+            el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            el.style.borderRadius = '50%';
+            el.style.pointerEvents = 'none';
+            el.style.zIndex = '9999';
+
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 4;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+
+            document.body.appendChild(el);
+
+            let posX = x;
+            let posY = y;
+            let opacity = 1;
+
+            const anim = setInterval(() => {
+                posX += vx;
+                posY += vy + 2;
+                opacity -= 0.02;
+
+                el.style.left = posX + 'px';
+                el.style.top = posY + 'px';
+                el.style.opacity = opacity;
+
+                if (opacity <= 0) {
+                    clearInterval(anim);
+                    el.remove();
+                }
+            }, 16);
+        }
+    }
+
+    document.querySelectorAll('.experiment-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const rect = btn.getBoundingClientRect();
+            createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
     });
+
 });
-    });
