@@ -1,5 +1,0 @@
-<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100%" height="100%" fill="#2A052E"/>
-  <circle cx="200" cy="200" r="180" stroke="#FFD700" stroke-width="10" fill="none"/>
-  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="120" fill="#FFD700" text-anchor="middle" dy=".35em" font-weight="bold">M</text>
-</svg>

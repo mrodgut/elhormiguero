@@ -35,29 +35,25 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'Óscar Casas',
             guest: 'Gervasio Deferr (El Gran Salto)',
             date: '4 Dic 2025',
-            img: 'https://fotografias.antena3.com/clipping/cmsimages01/2025/12/04/E3E26DDF-87EE-493E-975A-8683B2D9433A/soy-muy-motivado-estas-cosas-oscar-casas-demuestra-lado-mas-atletico-hormiguero_58.jpg',
-            url: 'https://www.atresplayer.com/antena3/programas/el-hormiguero/temporada-19/oscar-casas_674f88425206214588e44286/' // Updated to mimic real structure
+            img: 'assets/header_real.jpg'
         },
         {
             title: 'Ernesto Sevilla y Santiago Segura',
             guest: 'La Navidad en sus manos 2',
             date: '3 Dic 2025',
-            img: 'https://fotografias.antena3.com/clipping/cmsimages02/2025/08/29/10121844-4733-4533-8E04-B1AE27BDD35B/todas-novedades-hormiguero-que-arranca-temporada-proximo-lunes_96.jpg',
-            url: 'https://www.atresplayer.com/antena3/programas/el-hormiguero/temporada-19/ernesto-sevilla-santiago-segura_674e35d25206214588e3e4a2/'
+            img: 'assets/header_real.jpg'
         },
         {
             title: 'Sonsoles Ónega y Verónica Sánchez',
             guest: 'Las hijas de la criada',
             date: '2 Dic 2025',
-            img: 'https://fotografias.antena3.com/clipping/cmsimages01/2024/09/02/B0E8E7A2-1234-4567-89AB-CDEF01234567/sonsoles-onega-veronica-sanchez-presentan-hijas-criada_58.jpg', // Placeholder valid structure
-            url: 'https://www.atresplayer.com/antena3/programas/el-hormiguero/temporada-19/sonsoles-onega-veronica-sanchez_674ce3625206214588e386be/'
+            img: 'assets/header_real.jpg'
         },
         {
             title: 'Javier Veiga y Guillermo Francella',
             guest: 'Playa de Lobos',
             date: '1 Dic 2025',
-            img: 'https://fotografias.antena3.com/clipping/cmsimages01/2024/11/28/A1B2C3D4-5678-9012-3456-7890ABCDEF12/javier-veiga-guillermo-francella-presentan-playa-lobos_58.jpg', // Placeholder valid structure
-            url: 'https://www.atresplayer.com/antena3/programas/el-hormiguero/temporada-19/javier-veiga-guillermo-francella_674b90f25206214588e328da/'
+            img: 'assets/header_real.jpg'
         }
     ];
 
@@ -69,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'program-card';
             // Fallback for images if they fail (using gradient as solid background)
-            card.style.backgroundImage = `url('${prog.img}'), linear-gradient(to bottom, #2c3e50, #000)`;
+            card.style.backgroundImage = `url('${prog.img}')`;
 
             card.innerHTML = `
                 <div class="program-info">
@@ -79,11 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
 
-            // Click event to go to Atresplayer specific URL
-            card.addEventListener('click', () => {
-                window.open(prog.url, '_blank');
-            });
-
+            // Interaction removed for design demo
             programsGrid.appendChild(card);
         });
     }
