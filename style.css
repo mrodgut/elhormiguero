@@ -860,13 +860,10 @@ body {
 /* Mobile Responsive Adjustments (Moved to end for priority) */
 @media (max-width: 768px) {
     .hamburger {
-        display: none !important;
-        /* Disabled for debugging */
+        display: flex;
     }
 
     .nav-links {
-        display: none !important;
-        /* Disabled for debugging */
         position: fixed;
         top: 0;
         right: -100%;
@@ -879,7 +876,7 @@ body {
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        transition: none;
+        transition: right 0.4s ease-in-out;
         z-index: 90;
     }
 
