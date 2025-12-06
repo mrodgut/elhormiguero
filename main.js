@@ -117,35 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => title.classList.remove('fade-out'), 100);
 
         // 3. Star Animation (Optical Sugar)
-        // Only run if star exists and we are likely on desktop (visual preference)
         if (star) {
-            const allChars = document.querySelectorAll('.char-reveal');
-            if (allChars.length > 0) {
-                // Simple star animation across width
-                star.style.opacity = '1';
 
-                // Reveal Chars sync
-                chars.forEach((span, index) => {
-                    setTimeout(() => {
-                        span.style.animationPlayState = 'running';
-                    }, index * interval);
-                });
-
-            }, 1000); // Start after 1s
-        }
-
-// Peeking Ants & Parallax Trigger
-const heroContent = document.querySelector('.hero-content');
-
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-
-    // Hero Parallax
-    if (scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroContent.style.opacity = 1 - (scrolled / 700);
-    }
-});
+            // Hero Parallax
+            if (scrolled < window.innerHeight) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroContent.style.opacity = 1 - (scrolled / 700);
+            }
+        });
 
 // Fireworks Effect
 function createFirework(x, y) {
