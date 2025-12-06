@@ -169,10 +169,12 @@ body {
 
     /* Hero Title Adjustment */
     .hero-title {
-        font-size: 2.5rem;
-        /* Smaller font for mobile */
+        font-size: 1.8rem;
+        /* Reduced by ~30% for safety */
         width: 100%;
-        padding: 0 1rem;
+        padding: 0 10px;
+        word-wrap: break-word;
+        line-height: 1.2;
     }
 
     .pablo-img {
