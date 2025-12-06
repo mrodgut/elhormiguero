@@ -22,8 +22,15 @@
         <div class="hero-bg"></div>
         <div class="nav-bar">
             <img src="assets/logo.png" alt="Logo" class="nav-logo">
-            <nav>
-                <a href="#science">Ciencia</a>
+
+            <button class="hamburger" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="#programs">Programas</a>
                 <a href="#guests">Invitados</a>
                 <a href="#tickets">Entradas</a>
             </nav>
@@ -46,9 +53,19 @@
     </header>
 
     <main>
-        <section id="science" class="science-section">
-            <h2 class="section-title">CIENCIA CON MARRON</h2>
-            <p class="section-subtitle">Lo que no verás en ningún otro sitio</p>
+        <section id="movie" class="movie-section">
+            <h2 class="section-title">LA PELÍCULA 2024</h2>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/iwyPK6od4hM?si=_l0ldmpNRitg2e8g"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section id="programs" class="science-section programs-section">
+            <h2 class="section-title">PROGRAMAS COMPLETOS</h2>
+            <p class="section-subtitle">Disfruta de los mejores momentos en Atresplayer</p>
             <div class="experiments-grid">
                 <!-- Content injected by JS -->
             </div>
@@ -85,28 +102,28 @@
             <div class="collaborators-grid">
                 <div class="collab-item">
                     <div class="collab-img-wrapper">
-                        <img src="assets/marron_placeholder.svg" alt="Marron">
+                        <img src="assets/marron_real.png" alt="Marron">
                     </div>
                     <h3>Marron</h3>
                     <p class="role">Ciencia</p>
                 </div>
                 <div class="collab-item">
                     <div class="collab-img-wrapper">
-                        <img src="assets/nuria_placeholder.svg" alt="Nuria Roca">
+                        <img src="assets/nuria_real.png" alt="Nuria Roca">
                     </div>
                     <h3>Nuria Roca</h3>
                     <p class="role">Tertulia</p>
                 </div>
                 <div class="collab-item">
                     <div class="collab-img-wrapper">
-                        <img src="assets/juan_placeholder.svg" alt="Juan del Val">
+                        <img src="assets/juan_real.png" alt="Juan del Val">
                     </div>
                     <h3>Juan del Val</h3>
                     <p class="role">Polémica</p>
                 </div>
                 <div class="collab-item">
                     <div class="collab-img-wrapper">
-                        <img src="assets/monaguillo_placeholder.svg" alt="El Monaguillo">
+                        <img src="assets/monaguillo_real.png" alt="El Monaguillo">
                     </div>
                     <h3>El Monaguillo</h3>
                     <p class="role">Humor</p>
@@ -126,6 +143,24 @@
 
 
     </main>
+
+    <footer class="credits-footer">
+        <p>Desarrollado por: <strong>Miguel Ángel Rodríguez Gutiérrez</strong></p>
+        <a href="https://www.linkedin.com/in/mirogu/" target="_blank" rel="noopener noreferrer" class="linkedin-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+            </svg>
+        </a>
+    </footer>
+
+    <!-- Background Audio Hack (Browser might block sound without interaction) -->
+    <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;">
+        <iframe src="https://www.youtube.com/embed/iwyPK6od4hM?autoplay=1&loop=1&playlist=iwyPK6od4hM"
+            title="Background Audio" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
 
     <script src="main.js"></script>
 </body>

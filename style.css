@@ -18,6 +18,8 @@ body {
     background-color: var(--color-black);
     color: var(--color-white);
     overflow-x: hidden;
+    /* Fix horizontal scroll issue */
+    width: 100%;
 }
 
 /* Loader */
@@ -74,7 +76,12 @@ body {
     height: 60px;
 }
 
-nav a {
+/* Nav Links Desktop */
+.nav-links {
+    display: flex;
+}
+
+.nav-links a {
     color: var(--color-white);
     text-decoration: none;
     margin-left: 2rem;
@@ -85,8 +92,95 @@ nav a {
     transition: color 0.3s;
 }
 
-nav a:hover {
+.nav-links a:hover {
     color: var(--color-gold);
+}
+
+/* Hamburger Menu (Hidden on Desktop) */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 100;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-white);
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        /* Hidden by default */
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.4s ease-in-out;
+        z-index: 90;
+    }
+
+    .nav-links.active {
+        right: 0;
+        /* Slide in */
+    }
+
+    .nav-links a {
+        margin-left: 0;
+        font-size: 1.5rem;
+    }
+
+    /* Hamburger Animation when Active */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* Hero Title Adjustment */
+    .hero-title {
+        font-size: 2.5rem;
+        /* Smaller font for mobile */
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .pablo-img {
+        object-position: center top;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .pablo-container {
+        /* Ensure image container respects mobile width */
+        width: 100%;
+    }
 }
 
 .hero-content {
@@ -223,6 +317,49 @@ nav a:hover {
 }
 
 
+/* Movie Section */
+.movie-section {
+    padding: 6rem 2rem;
+    background: #000;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+}
+
+.video-container {
+    max-width: 1000px;
+    margin: 2rem auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(255, 215, 0, 0.2);
+    /* Golden glow */
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    animation: floatVideo 6s ease-in-out infinite;
+    aspect-ratio: 16/9;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes floatVideo {
+    0% {
+        transform: translateY(0px);
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.2);
+    }
+
+    50% {
+        transform: translateY(-15px);
+        box-shadow: 0 40px 70px rgba(255, 215, 0, 0.3);
+    }
+
+    100% {
+        transform: translateY(0px);
+        box-shadow: 0 20px 50px rgba(255, 215, 0, 0.2);
+    }
+}
+
 /* Science Section */
 .science-section {
     min-height: 100vh;
@@ -349,14 +486,105 @@ nav a:hover {
 }
 
 /* Science Grid */
+/* Programs/Science Grid */
 .experiments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns layout */
+    gap: 1.5rem;
+    max-width: 1400px;
+    /* Wider container for 4 items */
     margin: 0 auto;
     z-index: 2;
     position: relative;
+    padding-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .experiments-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on mobile */
+        gap: 1rem;
+    }
+}
+
+.program-card {
+    background-size: cover;
+    background-position: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    aspect-ratio: 16/9;
+    /* Video format */
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.program-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: var(--color-gold);
+    z-index: 10;
+}
+
+.program-card::after {
+    /* Gradient overlay for text readability */
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    z-index: 1;
+}
+
+/* Play icon overlay */
+.program-card::before {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.program-card:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.program-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    z-index: 3;
+    text-align: left;
+}
+
+.program-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+    display: block;
+    letter-spacing: 1px;
+}
+
+.program-card h3 {
+    font-size: 1.2rem;
+    color: var(--color-white);
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    margin: 0;
 }
 
 .science-card {
@@ -635,4 +863,34 @@ nav a:hover {
         transform: scale(1) translateY(0);
         filter: blur(0) brightness(1);
     }
+}
+
+/* Footer Credits */
+.credits-footer {
+    padding: 2rem;
+    text-align: center;
+    background: #000;
+    color: #666;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.credits-footer strong {
+    color: var(--color-gold);
+}
+
+.linkedin-link {
+    color: #0077b5;
+    transition: transform 0.3s, color 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.linkedin-link:hover {
+    transform: scale(1.2);
+    color: #00a0dc;
 }
